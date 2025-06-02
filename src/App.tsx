@@ -31,6 +31,13 @@ function App() {
     setCadastrado(false);
   };
 
+  const handleDeletar = () => {
+  setNome('');
+  setCpf('');
+  setPlaca('');
+  setCadastrado(false);
+};
+
   return (
     <div className="containerP">
       <img src={fag} alt="Fag" style={{ width: '60px', marginBottom: '20px' }} />
@@ -79,6 +86,11 @@ function App() {
           <div className="card">
             <button className="buttonCad" onClick={handleEditar}>
               <p>Editar</p>
+            </button>
+          </div>
+          <div className="card">
+            <button className="buttonCad" onClick={handleDeletar}>
+              <p>Deletar</p>
             </button>
           </div>
         </>

@@ -48,15 +48,21 @@ h2 {
 }
 
 .buttonCad{
-  border-radius: 10px;
+   border-radius: 10px;
   background-color: rgb(39, 119, 36);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   color: white;
-  padding: 10px 20px;
   border: none;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  
+  width: 120px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .buttonCad:hover {
