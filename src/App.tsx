@@ -8,23 +8,43 @@ function App() {
   const [placa, setPlaca] = useState('');
   const [cadastrado, setCadastrado] = useState(false);
 
-  const handleCadastrar = () => {
+  const handleCadastrar = async () => {
     if (!nome || !cpf || !placa) {
       alert('Preencha todos os campos!');
       return;
     }
-  
+
     if (cpf.length !== 11) {
       alert('CPF deve conter exatamente 11 dígitos!');
       return;
     }
-  
+
     if (placa.length !== 7) {
       alert('Placa deve conter exatamente 7 caracteres!');
       return;
     }
-  
-    setCadastrado(true);
+
+    try {
+      const response = await fetch('http://localhost:3001/api/cadastro', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ nome, cpf, placa }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(data.message || 'Cadastro realizado com sucesso!');
+        setCadastrado(true);
+      } else {
+        alert(data.error || 'Erro ao cadastrar.');
+      }
+    } catch (error) {
+      alert('Erro de conexão com o servidor.');
+      console.error(error);
+    }
   };
 
   const handleEditar = () => {
@@ -32,11 +52,11 @@ function App() {
   };
 
   const handleDeletar = () => {
-  setNome('');
-  setCpf('');
-  setPlaca('');
-  setCadastrado(false);
-};
+    setNome('');
+    setCpf('');
+    setPlaca('');
+    setCadastrado(false);
+  };
 
   return (
     <div className="containerP">
@@ -68,7 +88,7 @@ function App() {
               placeholder="Digite sua placa"
               className="input-cadastro"
               value={placa}
-              onChange={(e) => setPlaca(e.target.value)}
+              onChange={(e) => setPlaca(e.target.value.toUpperCase())}
             />
           </div>
           <div className="card">
@@ -96,7 +116,7 @@ function App() {
         </>
       )}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
